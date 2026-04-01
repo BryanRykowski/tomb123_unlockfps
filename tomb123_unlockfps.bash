@@ -1,14 +1,14 @@
 #!/bin/env bash
 
-OFFSET="30210"
-EXE_SHA="c5619bdc7ed1050386dd2df131cf4847787b63d7"
-MOD_SHA="a1a283f61041b90a8c205689bb3fce5663a70172"
+OFFSET="30173"
+EXE_SHA="c0583c202186db1d547b6b1d3b7d9765a7c52839"
+MOD_SHA="f8fc9a0f9cbad0ab80a08d0d5a9b3114f69fa9cb"
 EXE_NAME="tomb123.exe"
 BUP_NAME="tomb123.exe.orig"
 
 show_help() {
 	printf "Description: A script to unlock the framerate of the Steam version of Tomb Raider I-III Remastered in classic mode. "
-	printf "Intended for the 2026-03-12 \"Challenge Mode\" update. More info at https://www.tombraiderforums.com/showthread.php?t=229926\n\n"
+	printf "Intended for the 2026-03-31 6.1/\"Challenge Mode patch 1\" update. More info at https://www.tombraiderforums.com/showthread.php?t=229926\n\n"
 	printf "This script must be run from the game's executable directory (where $EXE_NAME is). "
 	printf "The simplest way is to copy this file to that directory and (from in that directory) run:\n\n    ./$(basename $0)\n"
 }
@@ -39,7 +39,7 @@ if [[ ! -f "$BUP_NAME" ]]; then
 	cp "./$EXE_NAME" "./$BUP_NAME" || exit -1
 fi
 
-printf "[INFO] Writing 0x9090 at offset 0x7602\n"
+printf "[INFO] Writing 0x9090 at offset 0x75DD\n"
 printf '\x90\x90' | dd of="./$EXE_NAME" bs=1 seek="$OFFSET" count=2 conv=notrunc status=none
 
 if [[ ! "$?" -eq 0 ]]; then
