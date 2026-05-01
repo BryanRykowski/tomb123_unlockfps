@@ -1,22 +1,22 @@
 #!/bin/env bash
 
-lock_off="30173"
-sspeed_off="7676"
-nspeed_off="30074"
-devspeed_off="6818"
-fspeed_off="7662"
+lock_off="30221"
+sspeed_off="7724"
+nspeed_off="30122"
+devspeed_off="6866"
+fspeed_off="7710"
 sspeed_val=
 nspeed_val=
 fspeed_val=
-exe_sha="381fe7c18968e50aadb34412473df62bc7a9a5a0"
+exe_sha="aa66d7712472515d670b75fb00da67b9b0dd070b"
 exe_name="tomb123.exe"
 bup_name="tomb123.exe.orig"
 
 show_info() {
 	cat <<EOF 
-Name:      tomb123_unlockfps v6.1-1
+Name:      tomb123_unlockfps v6.2
 Author:    Bryan Rykowski
-Date:      2026-04-05
+Date:      2026-05-01
 Description:
 
     A script to unlock the framerate and change the speed of the Steam version of Tomb Raider I-III Remastered in classic mode.
@@ -25,7 +25,7 @@ Description:
 
         ./$(basename $0)
 
-    Intended for the 2026-03-31 v6.1 "Challenge Mode patch 1" update. More info at https://www.tombraiderforums.com/showthread.php?t=229926.
+    Intended for the 2026-04-30 v6.2 "Challenge Mode Patch 2" update. More info at https://www.tombraiderforums.com/showthread.php?t=229926.
 
     The speed options can be used to set gameplay speed. The default speed is 30, the minimum is 1 and the maximum is 255. Game speed has no effect on the framerate or audio playback.
 
@@ -128,6 +128,11 @@ fi
 
 if [[ "$#" -lt 1 ]]; then
 	printf "[INFO] Run \"$(basename $0) -h\" for additional options.\n"
+fi
+
+if [[ ! -f "$bup_name" ]]; then
+	printf "[INFO] Backing up $exe_name as $bup_name\n"
+	cp "./$exe_name" "./$bup_name" || exit -1
 fi
 
 check_args $@
