@@ -1,22 +1,22 @@
 #!/bin/env bash
 
-lock_off="30221"
-sspeed_off="7724"
-nspeed_off="30122"
-devspeed_off="6866"
-fspeed_off="7710"
+lock_off="30499"
+sspeed_off="7708"
+nspeed_off="30106"
+devspeed_off="6850"
+fspeed_off="7694"
 sspeed_val=
 nspeed_val=
 fspeed_val=
-exe_sha="aa66d7712472515d670b75fb00da67b9b0dd070b"
+exe_sha="7c23db0d5e647444779ac884a5e0caf8e57adc0b"
 exe_name="tomb123.exe"
 bup_name="tomb123.exe.orig"
 
 show_info() {
 	cat <<EOF 
-Name:      tomb123_unlockfps v6.2
+Name:      tomb123_unlockfps v6.4
 Author:    Bryan Rykowski
-Date:      2026-05-01
+Date:      2026-10-18
 Description:
 
     A script to unlock the framerate and change the speed of the Steam version of Tomb Raider I-III Remastered in classic mode.
@@ -25,7 +25,7 @@ Description:
 
         ./$(basename $0)
 
-    Intended for the 2026-04-30 v6.2 "Challenge Mode Patch 2" update. More info at https://www.tombraiderforums.com/showthread.php?t=229926.
+    Intended for the 2026-10-06 v6.4 "Challenge Mode Patch 4" update. More info at https://www.tombraiderforums.com/showthread.php?t=229926.
 
     The speed options can be used to set gameplay speed. The default speed is 30, the minimum is 1 and the maximum is 255. Game speed has no effect on the framerate or audio playback.
 
@@ -174,13 +174,13 @@ fi
 
 # Unlock framerate
 
-if [[ "$(dd if=./$exe_name bs=1 count=2 skip=$lock_off status=none | od -An -tx2 | tr -d ' ')" == "9090" ]]; then
+if [[ "$(dd if=./$exe_name bs=1 count=4 skip=$lock_off status=none | od -An -tx2 | tr -d ' ')" == "ffffffff" ]]; then
 	printf "[INFO] Framerate already unlocked, nothing left to do\n"
 	exit
 fi
 
-printf "[INFO] Writing 0x9090 at offset 0x$( printf %X $lock_off ) to unlock framerate\n"
-printf '\x90\x90' | dd of="./$exe_name" bs=1 seek="$lock_off" count=2 conv=notrunc status=none
+printf "[INFO] Writing 0xffffffff at offset 0x$( printf %X $lock_off ) to unlock framerate\n"
+printf '\xff\xff\xff\xff' | dd of="./$exe_name" bs=1 seek="$lock_off" count=4 conv=notrunc status=none
 if [[ ! "$?" -eq 0 ]]; then
 	printf "[ERROR] Failed to unlock framerate!\n"
 	exit 1

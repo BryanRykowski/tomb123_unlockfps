@@ -1,4 +1,4 @@
-### Updated for v6.2 (Challenge Mode patch 2 2026-04-30)
+### Updated for v6.4 (Challenge Mode patch 4 2026-10-06)
 
 A script to unlock the framerate and change the speed of the Steam version of Tomb Raider I-III Remastered in classic mode. Based on MuruCoders' work here: https://www.tombraiderforums.com/showthread.php?t=229926.
    
